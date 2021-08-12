@@ -1,0 +1,392 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Presentation Gouaig collection</title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<img src="img/titre.png">
+					<p>par Laurence Signol</p>
+				</section>
+
+				<section>
+					<p style="font-size: 60px; text-align: left">Gaming</p>
+					<p style="font-size: 60px; text-align: left">Ou</p>
+					<p style="font-size: 60px; text-align: left">Une</p>
+					<p style="font-size: 60px; text-align: left">Autre</p>
+					<p style="font-size: 60px; text-align: left">Idée</p>
+					<p style="font-size: 60px; text-align: left">Geek</p>
+				</section>
+
+				<section>
+					<h2>Plan</h2>
+					<ul>
+						<li>Pourquoi ce projet</li>
+						<li>Cahier des charges</li>
+						<li>Démonstration</li>
+						<li>Codage</li>
+						<li>Eléments significatifs</li>
+						<li>Jeu d'essai</li>
+						<li>Recherche anglophone</li>
+						<li>Conclusion</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Pourquoi ce projet?</h2>
+				</section>
+
+				<!-- cahier des charges -->
+				<section>
+					<section>
+						<h2>Cahier des charges</h2>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Cahier des charges</h4>
+						<h2 style="color: #BE2A26">Une charte graphique</h2>
+						<div class="fragment">
+							<p style="font-size: 54px;">Palette de couleur</p>
+							<img src="img/couleur.png" alt="">
+						</div>
+						<div class="fragment">
+							<p style="font-size: 54px;">Typographie</p>
+							<ul>
+								<li>Roboto</li>
+								<li>Press start 2p</li>
+							</ul>
+						</div>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Cahier des charges</h4>
+						<h2 style="color: #BE2A26">Les users stories</h2>
+						<ul>
+							<li>la gestion de la base de données (19)</li>
+							<img src="img/gestion bdd.png" alt="">
+							<li>l'interface visiteur (15)</li>
+							<img src="img/interface.png" alt="">
+						</ul>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Cahier des charges</h4>
+						<h2 style="color: #BE2A26">Arborescence</h2>
+						<img src="img/arbo.png" height="530px" alt="">
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Cahier des charges</h4>
+						<h2 style="color: #BE2A26">Modélisation de la base de données</h2>
+						<img src="img/uml.png" alt="">
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Cahier des charges</h4>
+						<h2 style="color: #BE2A26">Maquettage</h2>
+						<p style="font-size: 54px;">Figma</p>
+						<img src="img/figma.png" height="80px" alt="">
+					</section>
+					<section>
+						<p style="font-size: 54px;">Accueil</p>
+						<img src="img/accueil.png" height="580px" alt="">
+					</section>
+					<section>
+						<p style="font-size: 54px;">Single</p>
+						<img src="img/single.png" height="580px" alt="">
+					</section>
+				</section>
+
+				<!-- démonstration -->
+				<section>
+					<h2 style="color: #BE2A26">Démonstration</h2>
+					<ul>
+						<li><a href="https://api.gouaig.fr" target="_blank">Api - back-office</a></li>
+						<li><a href="https://collection.gouaig.fr" target="_blank">Interface visuelle</a></li>
+					</ul>
+				</section>
+
+				<!-- codage -->
+				<section>
+						<h2>Codage</h2>
+						<p style="font-size: 54px;">Découverte de 2 frameworks</p>
+				</section>
+				<!-- codage/symfony -->
+				<section>
+					<section>
+						<h4 style="font-size: 24px;">Codage</h4>
+						<h2 style="color: #BE2A26">Symfony 5</h2>
+						<img src="img/symfony.png" alt="">
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage</h4>
+						<h2 style="color: #BE2A26">Symfony 5</h2>
+						<ul>
+							<li style="font-size: 54px;">PHP <img src="img/php.png" height="50px" style="margin: 0px 0px 0px 20px;"alt=""></li>
+							<li style="font-size: 54px;">structure MVC</li>
+						</ul>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage / Symfony</h4>
+						<h2 style="color: #BE2A26">MVC</h2>
+						<p style="font-size: 54px; color: #007BFF">M = Model</p>
+						<ul>
+							<li class="fragment">Gestion des données à afficher</li>
+							<li class="fragment">Entity + repository</li>
+						</ul>
+						<p class="fragment" style="font-size: 54px; color: #007BFF">Les entités</p>
+						<ul>
+							<li class="fragment">Doctrine (ORM)</li>
+							<li class="fragment">My SQL <img src="img/mysql.png" height="50px" style="margin: 0px 0px 0px 20px;"alt=""></li>
+						</ul>  
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage / Symfony</h4>
+						<h2 style="color: #BE2A26">MVC</h2>
+						<p style="font-size: 54px; color: #007BFF">V = View</p>
+						<ul>
+							<li class="fragment">Les pages</li>
+							<li class="fragment">Templates</li>
+							<li class="fragment">TWIG <img src="img/twig.jpeg" height="50px" style="margin: 0px 0px -10px 20px;"alt=""></li>
+						</ul>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage / Symfony</h4>
+						<h2 style="color: #BE2A26">MVC</h2>
+						<p style="font-size: 54px; color: #007BFF">C = Controller</p>
+						<ul>
+							<li class="fragment">Lien entre le modèle et la vue</li>
+							<li class="fragment">Coltroller</li>
+						</ul>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage / Symfony</h4>
+						<h2 style="color: #BE2A26">Bundle</h2>
+						<ul>
+							<li class="fragment">API Platform <img src="img/apiplatform.png" height="50px" style="margin: 0px 0px -10px 20px;"alt=""></li>
+							<li class="fragment">Easy Admin</li>
+							<li class="fragment">Security</li>
+						</ul>
+					</section>
+				</section>
+				<!-- codage/vuejs --> 
+				<section>
+					<section>
+						<h4 style="font-size: 24px;">Codage</h4>
+						<h2 style="color: #BE2A26">Vue JS 2</h2>
+						<img src="img/vue.png"> 
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage</h4>
+						<h2 style="color: #BE2A26">Vue JS 2</h2>
+						<p style="font-size: 54px;">Javascript</p>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage/VueJS</h4>
+						<h2 style="color: #BE2A26">Vuex</h2>
+						<ul>
+							<li class="fragment">Store centralisé</li>
+							<li class="fragment">Source unique des datas</li>
+							<li class="fragment">Requête à l'API</li>
+						</ul>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage/VueJS</h4>
+						<h2 style="color: #BE2A26">FullCalendar JS</h2>
+						<p style="font-size: 54px;">Bibliothèque permettant d'afficher un calendrier avec des évènements</p>
+						<img src="img/calendar.png" alt="">
+					</section>
+				</section>
+
+				<!-- Eléments Significatifs --> 
+				<section>
+					<h2>Eléments significatifs</h2>
+				</section>
+				<!-- config apiplatform -->
+				<section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs</h4>
+						<h2 style="color: #BE2A26">Configuration API Platform</h2>
+						<p style="font-size: 54px;">pour l'exemple : l'entité Serie</p>
+					</section>
+					<section data-auto-animate>
+						<h4 style="font-size: 24px;">Elements significatifs/configuration APIPlatform</h4>
+						<h2 style="color: #BE2A26" data-id="code-title">1er Action</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers='2'>
+								/**
+								* @ApiResource()
+								* @ORM\Entity(repositoryClass=SerieRepository::class)
+								*/
+								class Serie
+						</code></pre>
+						<img class="fragment" src="img/entityapi.png" height="500px" alt="">
+					</section>
+					<section data-auto-animate>
+						<h4 style="font-size: 24px;">Elements significatifs/configuration APIPlatform</h4>
+						<h2 style="color: #BE2A26" data-id="code-title">La configuration</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|3-4|5,18|8|6-7">
+							/**
+							* @ApiResource(
+							*      attributes={"order"={"name":"ASC"},
+							*                  "pagination_enabled"=false },
+							*      normalizationContext={"groups"={"read:serie","read:game","read:console","read:acc"}},
+							*      collectionOperations={"get"},
+							*      itemOperations={"get"},
+							*      formats={"json"}
+							* )
+							* @ORM\Entity(repositoryClass=SerieRepository::class)
+							*/
+						   class Serie
+						   {
+							/**
+							 * @ORM\Id
+							 * @ORM\GeneratedValue
+							 * @ORM\Column(type="integer")
+							 * @Groups({"read:serie","read:itemGame","read:itemConsole"})
+							 */
+							private $id;
+						</code></pre>
+					</section>
+					<section data-auto-animate>  
+						<h4 style="font-size: 24px;">Elements significatifs/configuration APIPlatform</h4>
+						<h2 style="color: #BE2A26">Résultat</h2>
+						<img src="img/serie.png" alt="">
+						
+					</section>
+					<section data-auto-animate>
+						<h4 style="font-size: 24px;">Elements significatifs/configuration APIPlatform</h4>
+						<h2 style="color: #BE2A26" data-id="code-title">Resultat</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							{
+								"hydra:member": [
+								  {
+									"@id": "string",
+									"@type": "string",
+									"id": 0,
+									"name": "string",
+									"format": "string",
+									"slug": "string",
+									"photo": "string",
+									"brand": {
+									  "@context": "string",
+									  "@id": "string",
+									  "@type": "string",
+									  "name": "string"
+									},
+									"platform": {
+									  "@context": "string",
+									  "@id": "string",
+									  "@type": "string",
+									  "name": "string"
+									}
+								  }
+								],
+								"hydra:totalItems": 0,
+								"hydra:view": {
+								  "@id": "string",
+								  "@type": "string",
+								  "hydra:first": "string",
+								  "hydra:last": "string",
+								  "hydra:previous": "string",
+								  "hydra:next": "string"
+								},
+								"hydra:search": {
+								  "@type": "string",
+								  "hydra:template": "string",
+								  "hydra:variableRepresentation": "string",
+								  "hydra:mapping": [
+									{
+									  "@type": "string",
+									  "variable": "string",
+									  "property": "string",
+									  "required": true
+									}
+								  ]
+								}
+							  }
+						</code></pre>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							{
+								"id": 0,
+								"name": "string",
+								"format": "string",
+								"slug": "string",
+								"photo": "string",
+								"serie": {
+								  "name": "string"
+								},
+								"brand": {
+								  "name": "string"
+								},
+								"platform": {
+								  "id": 0,
+								  "name": "string"
+								}
+							  }
+						</code></pre>
+					</section>
+				</section>
+				 <!-- route perso--> 
+				<section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs</h4>
+						<h2 style="color: #BE2A26">Route personalisée</h2>
+						<p style="font-size: 54px;">pour l'exemple : la route des anniversaires de sortie des jeux au Japon du jour</p>
+					</section>
+					
+				</section>
+			
+				<!-- Jeu d'essai --> 
+				<section>
+					<h2>Jeu d'essai</h2>
+				</section>
+
+				<!-- recherche --> 
+				<section>
+					<h2>Recherche anglophone</h2>
+				</section>
+
+				<!-- Conclusion --> 
+				<section>
+					<h2>Conclusion</h2>
+				</section>
+
+			</div>
+		</div>
+ 
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				slideNumber: 'c/t',
+
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
