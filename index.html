@@ -111,7 +111,7 @@
 
 				<!-- démonstration -->
 				<section>
-					<h2 style="color: #BE2A26">Démonstration</h2>
+					<h2>Démonstration</h2>
 					<ul>
 						<li><a href="https://api.gouaig.fr" target="_blank">Api - back-office</a></li>
 						<li><a href="https://collection.gouaig.fr" target="_blank">Interface visuelle</a></li>
@@ -224,12 +224,14 @@
 					<section data-auto-animate>
 						<h4 style="font-size: 24px;">Elements significatifs/configuration APIPlatform</h4>
 						<h2 style="color: #BE2A26" data-id="code-title">1er Action</h2>
-						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers='2'>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|2|">
 								/**
 								* @ApiResource()
 								* @ORM\Entity(repositoryClass=SerieRepository::class)
 								*/
-								class Serie
+								class Serie{
+								
+								}
 						</code></pre>
 						<img class="fragment" src="img/entityapi.png" height="500px" alt="">
 					</section>
@@ -263,7 +265,6 @@
 						<h4 style="font-size: 24px;">Elements significatifs/configuration APIPlatform</h4>
 						<h2 style="color: #BE2A26">Résultat</h2>
 						<img src="img/serie.png" alt="">
-						
 					</section>
 					<section data-auto-animate>
 						<h4 style="font-size: 24px;">Elements significatifs/configuration APIPlatform</h4>
@@ -345,22 +346,433 @@
 						<h2 style="color: #BE2A26">Route personalisée</h2>
 						<p style="font-size: 54px;">pour l'exemple : la route des anniversaires de sortie des jeux au Japon du jour</p>
 					</section>
-					
+					<section data-auto-animate>
+						<h4 style="font-size: 24px;">Elements significatifs/route personnalisée</h4>
+						<h2 style="color: #BE2A26" data-id="code-title">Configuration de l'entité</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|5|6|7|9|8">
+							/**
+							* @ApiResource(
+							*      collectionOperations={
+							*			"get_birthJP"={
+							*                "method"="GET",                
+							*                "path"="/games/birthJP",
+							*                "normalization_context"={"groups"={"read:birthdayJPg"}},
+							*                "controller"=BirthJPgController::class,
+							*                "formats"={"json"}
+							*              },
+							* )
+							* @ORM\Entity(repositoryClass=SerieRepository::class)
+							*/
+						</code></pre>
+					</section>
+					<section data-auto-animate>
+						<h4 style="font-size: 24px;">Elements significatifs/route personnalisée</h4>
+						<h2 style="color: #BE2A26" data-id="code-title">Le controleur</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+								class BirthJPgController
+								{
+									public function __construct(GameRepository $gameRepository)
+									{
+										$this->gameRepository = $gameRepository;
+									}
+
+									public function __invoke()
+									{
+										return $this->gameRepository->birthJPg();
+									}
+								}
+						</code></pre>
+					</section>
+					<section data-auto-animate>
+						<h4 style="font-size: 24px;">Elements significatifs/route personnalisée</h4>
+						<h2 style="color: #BE2A26" data-id="code-title">Le repository</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|6-9|">
+							class GameRepository extends ServiceEntityRepository
+							{
+								public function birthJPg()
+									{
+									$query = $this->getEntityManager()->createQuery('
+									SELECT g FROM App\Entity\Game g WHERE 
+									DAY(NOW())=DAY(g.releaseJP) 
+									AND MONTH(NOW())=MONTH(g.releaseJP) 
+									order by g.name ASC');
+									return $query->getResult();
+									}
+								} 
+						</code></pre>
+						<pre class="fragment" data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							SELECT * FROM 'game' WHERE DAY(CURDATE()) = DAY(releaseJP) 
+							AND MONTH(CURDATE()) = MONTH(releaseJP)  
+						</code></pre>
+					</section>
+					<section data-auto-animate>
+						<h4 style="font-size: 24px;">Elements significatifs/route personnalisée</h4>
+						<h2 style="color: #BE2A26" data-id="code-title">Le repository</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers >
+							class GameRepository extends ServiceEntityRepository
+							{
+								public function lastFive()
+									{
+										return $this->createQueryBuilder('g')
+											->orderBy('g.id', 'DESC')
+											->setMaxResults(5)
+											->getQuery()
+											->getResult()
+										;
+									}
+						</code></pre>
+					</section>
 				</section>
-			
+				<!-- Vuex --> 
+				<section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs</h4>
+						<h2 style="color: #BE2A26">VUEX</h2>
+						<p style="font-size: 54px;">pour l'exemple : le module accessoire</p>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/vuex</h4>
+						<h2 style="color: #BE2A26">Composition</h2>
+						<ul>
+							<li class="fragment"><span style="color: #007BFF;">State</span> = les variables</li>
+							<li class="fragment"><span style="color: #007BFF;">Mutations</span> = Modifie les variables de manière synchrone</li>
+							<li class="fragment"><span style="color: #007BFF;">Actions</span> =  Requête à l'API - Modifie les varaibales via les mutations</li>
+							<li class="fragment"><span style="color: #007BFF;">Getters</span> = Fonctions calculés, filtre ...</li>
+						</ul>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/vuex</h4>
+						<h2 style="color: #BE2A26">Module</h2>
+						<img src="img/module.png" height="530px" alt="">
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/vuex</h4>
+						<h2 style="color: #BE2A26">State</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							export default {
+								accs: [],
+								acc: null,
+								nbrAccs: null,
+								loadingStatus: false
+							}  
+						</code></pre>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/vuex</h4>
+						<h2 style="color: #BE2A26">Mutations</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							export const SET_ACCS = (state, accs) => {
+								state.accs = accs;
+							}
+							
+							export const SET_ACC = (state, acc) => {
+								state.acc = acc;
+							}
+							
+							export const SET_NBRACCS = (state, nbrAccs) => {
+								state.nbrAccs = nbrAccs
+							}
+							
+							export const SET_LOADINGSTATUS = (state, newLoadingStatus) => {
+								state.loadingStatus = newLoadingStatus;
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/vuex</h4>
+						<h2 style="color: #BE2A26">Actions</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							import Acc from "../../../api/Acc";
+
+								export const getAccs = ({ commit }) => {
+									Acc
+									.allAccs()
+									.then(response => { commit('SET_ACCS', response.data['hydra:member']);})
+								}
+
+								export const getAcc = ({ commit }, accId) => {
+									commit('SET_LOADINGSTATUS', true)
+									Acc
+									.showAcc(accId)
+									.then(response => { commit('SET_ACC', response.data), commit('SET_LOADINGSTATUS', false);})
+								}
+
+								export const getNbrAccs = ({ commit }) => {
+									Acc
+									.allAccs()
+									.then(response => { commit('SET_NBRACCS', response.data['hydra:totalItems']);})
+								}
+						</code></pre>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/vuex</h4>
+						<h2 style="color: #BE2A26">Axios</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							import axios from "axios";
+
+								const Api = axios.create({
+									baseURL:'https://api.gouaig.fr/api'
+								});
+
+								export default Api;
+						</code></pre>
+						<pre class="fragment" data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							import Api from "./Api";
+
+								export default {
+									allAccs() {
+										return Api.get('accessories');
+									},
+									
+									showAcc(id) {
+										return Api.get(`accessories/${id}`);
+									}
+								}
+						</code></pre>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/vuex</h4>
+						<h2 style="color: #BE2A26">Utilisation dans un composant</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							<script>
+								import { mapState, mapActions } from "vuex";
+								export default {
+									computed: {
+										...mapState('game', ['nbrGames']),
+										...mapState('console', ['nbrConsoles']),
+										...mapState('acc', ['nbrAccs'])
+									},
+									mounted() {
+										this.getNbrGames();
+										this.getNbrConsoles();
+										this.getNbrAccs(); 
+									},
+									methods: {
+										...mapActions("game", ['getNbrGames']),
+										...mapActions("console", ['getNbrConsoles']),
+										...mapActions("acc", ['getNbrAccs']),
+									}  
+								}
+							</script>
+						</code></pre>
+					</section>
+				</section>
+				<!-- calendrier --> 
+				<section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs</h4>
+						<h2 style="color: #BE2A26">Configuration Calendrier</h2>
+						<img src="img/calendrier.png" height="530px" alt="">
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/calendrier</h4>
+						<h2 style="color: #BE2A26">Getters</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|3-4|5|7|8-12|13|14|15-16">
+							export const eventsJPg = (state) => 
+								{
+									return state.birthdayJPg.filter(birthdayJPg => 
+									birthdayJPg.releaseJP !== null)
+									.map(event => {
+										const events= {};
+										events.title = 'JP' +' '+ event.name +' '+ event.platform.name;
+										events.rrule = {
+											'freq': 'yearly',
+											'dtstart': event.releaseJP,
+											'until': '2100-01-01'
+										}
+										events.url = 'https://collection.gouaig.fr/single/Jeux/'+ event.id 
+										events.allDay = true;
+										events.backgroundColor = 'white';
+										events.borderColor = 'red';
+										return events;
+									})
+								}
+						</code></pre>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/calendrier</h4>
+						<h2 style="color: #BE2A26">Composant</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|6-7|37-47|4-5|25|26-32|11|12-16|17-21|22|23|24">
+							<script>
+								export default {
+								  computed: {
+									  ...mapGetters('game', ['eventsJPg', 'eventsUSg', 'eventsFRg',]),
+									  ...mapGetters('console', ['eventsJPc', 'eventsUSc', 'eventsFRc']),
+									  ...mapState('game', ['birthdayJPg', 'birthdayUSg', 'birthdayFRg']),
+									  ...mapState('console', ['birthdayJPc', 'birthdayUSc', 'birthdayFRc']),
+									  calendarOptions() {
+										return{
+										plugins: [ dayGridPlugin, interactionPlugin , rrulePlugin],
+										initialView: 'dayGridMonth',
+										headerToolbar: {
+												left: 'prev today next',
+												center: 'title',
+												right: 'dayGridMonth dayGridWeek'
+											},
+										buttonText: {
+										  today: 'Aujourd\'hui',
+										  month: 'Mois',
+										  week: 'Semaine',
+										},
+										firstDay: 1,
+										locale: 'fr',
+										navLinks: true,
+										events: this.eventsJPg.concat(this.eventsUSg, this.eventsFRg, this.eventsJPc, this.eventsUSc, this.eventsFRc),
+										eventClick: function(info) {
+										   if (confirm(info.event.title + '.\n' + 'Ouvrir la page du jeu')){
+											window.reload(info.event.url);
+											info.jsEvent.preventDefault();
+											}else {
+											  info.jsEvent.preventDefault();
+											}
+										}
+										}
+									  },
+								  },
+								  mounted() {
+									this.getBirthdayJPg();
+									this.getBirthdayUSg();
+									this.getBirthdayFRg();
+									this.getBirthdayJPc();
+									this.getBirthdayUSc();
+									this.getBirthdayFRc();
+								  },
+								  methods: {
+									...mapActions('game', ['getBirthdayJPg', 'getBirthdayUSg', 'getBirthdayFRg']),
+									...mapActions('console', ['getBirthdayJPc', 'getBirthdayUSc', 'getBirthdayFRc'])
+								  }
+								}
+								</script>
+						</code></pre>
+					</section>
+				</section>
+
 				<!-- Jeu d'essai --> 
 				<section>
-					<h2>Jeu d'essai</h2>
+					<section>
+						<h2>Jeu d'essai</h2>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">jeu d'essai</h4>
+						<h2 style="color: #BE2A26">PHPUnit</h2>
+						<ul>
+							<li class="fragment">Framework PHP de tests unitaires</li>
+							<li class="fragment">Tests d'assertion = experssion écrite doit etre evaluée VRAI</li>
+						</ul>
+						<p class="fragment">Pour l'exemple : test sur l'entité Accessory</p>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">jeu d'essai/PHPUnit</h4>
+						<h2 style="color: #BE2A26">FICHIER TEST</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|3|5-15|17-23|26|28-38|40-46|51|53-59">
+							class AccessoryUnitTest extends TestCase
+								{
+									public function testIsTrue()
+									{
+										$accessory = new Accessory();
+										$brand = new Brand();
+										$serie = new Serie;
+
+										$accessory->setName('name')
+												->setFormat('Loose')
+												->setSlug('slug')
+												->setPhoto('photo')
+												->setBlog('blog')
+												->setSerie($serie)
+												->setBrand($brand);
+										
+										$this->assertTrue($accessory->getName() === 'name');
+										$this->assertTrue($accessory->getFormat() === 'Loose');
+										$this->assertTrue($accessory->getSlug() === 'slug');
+										$this->assertTrue($accessory->getPhoto() === 'photo');
+										$this->assertTrue($accessory->getBlog() === 'blog');
+										$this->assertTrue($accessory->getSerie() === $serie);
+										$this->assertTrue($accessory->getBrand() === $brand);
+									}
+
+									public function testIsFalse()
+									{
+										$accessory = new Accessory();
+										$brand = new Brand();
+										$serie = new Serie;
+
+										$accessory->setName('name')
+												->setFormat('format')
+												->setSlug('slug')
+												->setPhoto('photo')
+												->setBlog('blog')
+												->setSerie($serie)
+												->setBrand($brand);
+										
+										$this->assertFalse($accessory->getName() === 'false');
+										$this->assertFalse($accessory->getFormat() === 'format');
+										$this->assertFalse($accessory->getSlug() === 'false');
+										$this->assertFalse($accessory->getPhoto() === 'false');
+										$this->assertFalse($accessory->getBlog() === 'false');
+										$this->assertFalse($accessory->getSerie() === new Serie());
+										$this->assertFalse($accessory->getBrand() === new Brand());
+									}
+
+									public function testIsEmpty()
+									{
+										$accessory = new Accessory();
+
+										$this->assertEmpty($accessory->getName());
+										$this->assertEmpty($accessory->getFormat());
+										$this->assertEmpty($accessory->getSlug());
+										$this->assertEmpty($accessory->getPhoto());
+										$this->assertEmpty($accessory->getBlog());
+										$this->assertEmpty($accessory->getSerie());
+										$this->assertEmpty($accessory->getBrand());
+
+									}
+								}
+						</code></pre>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">jeu d'essai/PHPUNIT</h4>
+						<h2 style="color: #BE2A26">résultat</h2>
+						<div style="display: flex;">
+						<div>
+							<p style="color:#007BFF">php .vendor/bin/phpunit</p>
+							<img src="img/phpunit1.png" width="500px" alt="">
+						</div>
+						<div>
+							<p>php bin/phpunit -testdox</p>
+							<img src="img/phpunit2.png" height="430px" alt="">
+						</div>
+						</div>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">jeu d'essai</h4>
+						<h2 style="color: #BE2A26">Travis CI</h2>
+						<p>Intégration continue = test une application a chaque git push</p>
+						<img src="img/travis.png" height="400px" alt="">	
+					</section> 
 				</section>
 
 				<!-- recherche --> 
 				<section>
-					<h2>Recherche anglophone</h2>
+					<section>
+						<h2>Recherche anglophone</h2>
+					</section>
+					<section>
+						<h2>Recherche anglophone</h2>
+						<p class="fragment">Nombreux sites anglophones</p>
+						<a class="fragment" href="https://symfony.com/doc/current/bundles/EasyAdminBundle/crud.html" target="_blank">bundle EasyAdmin et le controller CRUD</a>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Recherche anglophone</h4>
+						<img src="img/anglais.png" alt="">
+					</section>
 				</section>
 
 				<!-- Conclusion --> 
 				<section>
 					<h2>Conclusion</h2>
+				</section>
+				<section>
+					<h2>Merci pour votre écoute</h2>
 				</section>
 
 			</div>
