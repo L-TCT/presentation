@@ -37,7 +37,7 @@
 
 				<section>
 					<h2>Plan</h2>
-					<ul>
+					<ol>
 						<li>Pourquoi ce projet</li>
 						<li>Cahier des charges</li>
 						<li>Démonstration</li>
@@ -46,7 +46,7 @@
 						<li>Jeu d'essai</li>
 						<li>Recherche anglophone</li>
 						<li>Conclusion</li>
-					</ul>
+					</ol>
 				</section>
 
 				<section>
@@ -164,20 +164,32 @@
 					</section>
 					<section>
 						<h4 style="font-size: 24px;">Codage / Symfony</h4>
-						<h2 style="color: #BE2A26">MVC</h2>
+			  			<h2 style="color: #BE2A26">MVC</h2>
 						<p style="font-size: 54px; color: #007BFF">C = Controller</p>
 						<ul>
 							<li class="fragment">Lien entre le modèle et la vue</li>
-							<li class="fragment">Coltroller</li>
+							<li class="fragment">Controller</li>
 						</ul>
 					</section>
 					<section>
 						<h4 style="font-size: 24px;">Codage / Symfony</h4>
-						<h2 style="color: #BE2A26">Bundle</h2>
+						<h2 style="color: #BE2A26">Bundles</h2>
 						<ul>
-							<li class="fragment">API Platform <img src="img/apiplatform.png" height="50px" style="margin: 0px 0px -10px 20px;"alt=""></li>
-							<li class="fragment">Easy Admin</li>
-							<li class="fragment">Security</li>
+							<li class="fragment"><img src="img/apiplatform.png" height="50px" style="margin: 0px 0px -10px 20px;"alt=""> API Platform: Permet de créer une API REST</li>
+							<p class="fragment">3 caractéristiques :</p>
+							<ul>
+								<li class="fragment" style="list-style: square;">Les méthodes: GET, POST, PUT PATCH, DELETE</li>
+								<li class="fragment" style="list-style: square;">Une URL avec un schéma défini</li>
+								<li class="fragment" style="list-style: square;">Utilise application/JSON</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage / Symfony</h4>
+						<h2 style="color: #BE2A26">Bundles</h2>
+						<ul>
+							<li class="fragment">Easy Admin:  Permet de créer un back-office</li>
+							<li class="fragment">Security: permet de sécuriser le back-office</li>
 						</ul>
 					</section>
 				</section>
@@ -192,6 +204,7 @@
 						<h4 style="font-size: 24px;">Codage</h4>
 						<h2 style="color: #BE2A26">Vue JS 2</h2>
 						<p style="font-size: 54px;">Javascript</p>
+						<img src="img/js.png" height="250px" alt="">
 					</section>
 					<section>
 						<h4 style="font-size: 24px;">Codage/VueJS</h4>
@@ -200,6 +213,16 @@
 							<li class="fragment">Store centralisé</li>
 							<li class="fragment">Source unique des datas</li>
 							<li class="fragment">Requête à l'API</li>
+						</ul>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Codage/VueJS</h4>
+						<h2 style="color: #BE2A26">Axios</h2>
+						<ul>
+							<li class="fragment">Client HTTP basé sur des promesses</li>
+							<li class="fragment">On utilise une URL pour les requêtes</li>
+							<li class="fragment">Les résultats sont automatiquement JSON</li>
+							<li class="fragment">Pris en charge par tous les navigateurs même ancien</li>
 						</ul>
 					</section>
 					<section>
@@ -223,7 +246,7 @@
 					</section>
 					<section data-auto-animate>
 						<h4 style="font-size: 24px;">Elements significatifs/configuration APIPlatform</h4>
-						<h2 style="color: #BE2A26" data-id="code-title">1er Action</h2>
+						<h2 style="color: #BE2A26" data-id="code-title">1ere Action</h2>
 						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers="|2|">
 								/**
 								* @ApiResource()
@@ -233,7 +256,7 @@
 								
 								}
 						</code></pre>
-						<img class="fragment" src="img/entityapi.png" height="500px" alt="">
+						<img class="fragment" src="img/entityapi.jpeg" height="300px" alt="">
 					</section>
 					<section data-auto-animate>
 						<h4 style="font-size: 24px;">Elements significatifs/configuration APIPlatform</h4>
@@ -436,7 +459,7 @@
 						<ul>
 							<li class="fragment"><span style="color: #007BFF;">State</span> = les variables</li>
 							<li class="fragment"><span style="color: #007BFF;">Mutations</span> = Modifie les variables de manière synchrone</li>
-							<li class="fragment"><span style="color: #007BFF;">Actions</span> =  Requête à l'API - Modifie les varaibales via les mutations</li>
+							<li class="fragment"><span style="color: #007BFF;">Actions</span> =  Requête à l'API - Modifie les variables via les mutations</li>
 							<li class="fragment"><span style="color: #007BFF;">Getters</span> = Fonctions calculés, filtre ...</li>
 						</ul>
 					</section>
@@ -527,6 +550,32 @@
 									showAcc(id) {
 										return Api.get(`accessories/${id}`);
 									}
+								}
+						</code></pre>
+					</section>
+					<section>
+						<h4 style="font-size: 24px;">Elements significatifs/vuex</h4>
+						<h2 style="color: #BE2A26">Actions</h2>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							import Acc from "../../../api/Acc";
+
+								export const getAccs = ({ commit }) => {
+									Acc
+									.allAccs()
+									.then(response => { commit('SET_ACCS', response.data['hydra:member']);})
+								}
+
+								export const getAcc = ({ commit }, accId) => {
+									commit('SET_LOADINGSTATUS', true)
+									Acc
+									.showAcc(accId)
+									.then(response => { commit('SET_ACC', response.data), commit('SET_LOADINGSTATUS', false);})
+								}
+
+								export const getNbrAccs = ({ commit }) => {
+									Acc
+									.allAccs()
+									.then(response => { commit('SET_NBRACCS', response.data['hydra:totalItems']);})
 								}
 						</code></pre>
 					</section>
